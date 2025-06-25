@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>⚡ Hackernet Mainframe ⚡</title>
   <style>
     body {
@@ -68,28 +68,36 @@
 </head>
 <body>
   <img src="/logo.png" alt="Hackerman Logo" />
-  <h1>ACCESSING ULTRA PROXY INTERFACE...</h1>
+  <h1>ULTRAVIOLET INTERFACE ONLINE</h1>
   <form id="searchForm">
     <input
       type="text"
       id="searchInput"
-      placeholder="Search the net... like a pro"
+      placeholder="Enter a URL (like google.com)"
       autocomplete="off"
     />
   </form>
 
+  <script src="/uv/uv.bundle.js"></script>
+  <script src="/uv/uv.config.js"></script>
+  <script src="/uv/uv.client.js"></script>
   <script>
     const form = document.getElementById('searchForm');
     const input = document.getElementById('searchInput');
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const query = input.value.trim();
-      if (!query) return;
+      let url = input.value.trim();
+      if (!url) return;
 
-      // You can change the search engine here if you want.
-      const duckDuckGoUrl = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
-      window.open(duckDuckGoUrl, '_blank');
+      // If the user didn’t include a protocol, add https://
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+      }
+
+      // Encode the URL using UV’s built-in encoder
+      const encodedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
+      window.location.href = encodedUrl;
     });
   </script>
 </body>
