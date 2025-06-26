@@ -6,6 +6,7 @@ import Fastify from "fastify";
 import fastifyStatic from "@fastify/static";
 
 // static paths
+import { join } from "node:path";
 const publicPath = join(process.cwd(), "public");
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
@@ -56,6 +57,8 @@ fastify.register(fastifyStatic, {
 fastify.server.on("listening", () => {
 	const address = fastify.server.address();
 
+	// by default we are listening on 0.0.0.0 (every interface)
+	// we just need to list a few
 	console.log("Listening on:");
 	console.log(`\thttp://localhost:${address.port}`);
 	console.log(`\thttp://${hostname()}:${address.port}`);
