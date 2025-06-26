@@ -1,104 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>⚡ Hackernet Mainframe ⚡</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #000;
-      color: #00ff88;
-      font-family: 'Courier New', monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-    }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>⚡CreeperProxy</title>
 
-    img {
-      width: 300px;
-      max-width: 90vw;
-      margin-bottom: 2rem;
-      filter: drop-shadow(0 0 20px #00ff88);
-    }
+    <!-- Aesthetic Meta -->
+    <meta name="theme-color" content="#00ff88" />
+    <link rel="stylesheet" href="index.css" />
 
-    form {
-      width: 100%;
-      max-width: 600px;
-      display: flex;
-      justify-content: center;
-    }
+    <!-- Scripts -->
+    <script src="baremux/index.js" defer></script>
+    <script src="epoxy/index.js" defer></script>
+    <script src="uv/uv.bundle.js" defer></script>
+    <script src="uv/uv.config.js" defer></script>
+    <script src="register-sw.js" defer></script>
+    <script src="index.js" defer></script>
 
-    input[type="text"] {
-      width: 100%;
-      padding: 1rem;
-      font-size: 1.2rem;
-      background: #000;
-      border: 2px solid #00ff88;
-      color: #00ff88;
-      border-radius: 10px;
-      outline: none;
-      box-shadow: 0 0 15px #00ff88;
-    }
-
-    input::placeholder {
-      color: #00ff88aa;
-    }
-
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 24%, 55% {
-        opacity: 0.3;
-      }
-    }
-
-    h1 {
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      animation: flicker 1.5s infinite;
-      color: #00ff88;
-    }
-  </style>
-</head>
-<body>
-  <img src="/logo.png" alt="Hackerman Logo" />
-  <h1>ULTRAVIOLET INTERFACE ONLINE</h1>
-  <form id="searchForm">
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Enter a URL (like google.com)"
-      autocomplete="off"
-    />
-  </form>
-
-  <script src="/uv/uv.bundle.js"></script>
-  <script src="/uv/uv.config.js"></script>
-  <script src="/uv/uv.client.js"></script>
-  <script>
-    const form = document.getElementById('searchForm');
-    const input = document.getElementById('searchInput');
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      let url = input.value.trim();
-      if (!url) return;
-
-      // If the user didn’t include a protocol, add https://
-      if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        url = 'https://' + url;
+    <!-- Hacker Vibes -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Courier New", monospace;
+        background-color: #000;
+        color: #00ff88;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
       }
 
-      // Encode the URL using UV’s built-in encoder
-      const encodedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
-      window.location.href = encodedUrl;
-    });
-  </script>
-</body>
+      img.logo {
+        width: 200px;
+        max-width: 90vw;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 0 10px #00ff88);
+      }
+
+      h1 {
+        margin-bottom: 1rem;
+        font-size: 2.5rem;
+        text-shadow: 0 0 10px #00ff88;
+      }
+
+      form {
+        width: 90%;
+        max-width: 600px;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1.2rem;
+        background: #111;
+        color: #00ff88;
+        border: 2px solid #00ff88;
+        border-radius: 10px;
+        outline: none;
+        box-shadow: 0 0 10px #00ff88;
+      }
+
+      input::placeholder {
+        color: #44ff99;
+      }
+
+      footer {
+        position: absolute;
+        bottom: 1rem;
+        font-size: 0.9rem;
+        color: #00ff88aa;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="logo.png" alt="Logo" class="logo" />
+    <h1>Welcome to CreeperProxy</h1>
+    <form id="uv-form">
+      <input
+        id="uv-address"
+        type="text"
+        placeholder="Enter a website URL (https://...)"
+        autocomplete="off"
+      />
+      <input
+        id="uv-search-engine"
+        value="https://www.google.com/search?q=%s"
+        type="hidden"
+      />
+    </form>
+    <footer>
+      <span>💻 Powered by Ultraviolet · CreeperProxy 2025</span>
+    </footer>
+
+    <iframe id="uv-frame" style="display: none;"></iframe>
+  </body>
 </html>
